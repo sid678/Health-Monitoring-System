@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    
+  </title>
+  <style>
+    #list li{
+        margin: 10px;
+    }
+    .btn, .btn2{
+      background-color: aqua;
+      height: 40px;
+      width: 100px;
+    }
+    
+  </style>
+</head>
+<body>
+  <h4>Patient Name:</h4>
+  <div >
+    <div >
+  <button onclick="FetchAllData()" class="btn" >Click to see temperature</button>
+   <h4>Body Temperature in C</h4>
+  <ol id="list">
+  </div>
+  <div class="div2" >
+
+  </ol>
+  <button onclick="FetchAllData_2()" class="btn2" >Click to see pulse rate</button>
+  <h4>Pulse</h4>
+  <ol id="list2">
+  </ol>
+</div>
+</div>
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+  <script id="Mainscript">
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaS****************XY0jpmoSeNs",
+      authDomain: "d*******2.firebaseapp.com",
+      databaseURL: "https://d******2.firebaseio.com",
+      projectId: "d******2",
+      storageBucket: "d**********.appspot.com",
+      messagingSenderId: "8******9",
+      appId: "1:8******************1e8a2f181a2",
+      measurementId: "G*********L"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var stdNo=0;
+    var ol = document.getElementById('list');
+    var ol2 = document.getElementById('list2');
+
+    function FetchAllData(){
+      console.log('hey2');
+        firebase.database().ref("body_temperature_in_C").once('value',function(snapshot){
+          snapshot.forEach(
+            function(ChildSnapshot){
+              var temp = document.createElement('li');
+              var tempvalue = ChildSnapshot.node_.value_
+              temp.innerHTML=  tempvalue;
+               ol.appendChild(temp) ;
+            }
+            );
+        });
+    }
+
+    function FetchAllData_2(){
+
+        firebase.database().ref("pulse").once('value',function(snapshot){
+          snapshot.forEach(
+            function(ChildSnapshot){
+              var temp2 = document.createElement('li');
+              var pulsevalue = ChildSnapshot.node_.value_
+              temp2.innerHTML=  pulsevalue;
+               ol2.appendChild(temp2) ;
+            }
+            );
+        });
+    }
+
+ 
+</script>
+
+
+
+</body>
+</html>
